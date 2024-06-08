@@ -68,8 +68,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Koin for Dependency Injection
-    implementation("io.insert-koin:koin-core:3.4.3")
-    implementation("io.insert-koin:koin-android:3.4.3")
-    implementation("io.insert-koin:koin-androidx-compose:3.4.6")
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Dependencies as bundle : Koin & Compose
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.koin)
+
+
 
 }
