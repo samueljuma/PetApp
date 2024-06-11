@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -75,6 +76,9 @@ dependencies {
     // Dependencies as bundle : Koin & Compose
     implementation(libs.bundles.compose)
     implementation(libs.bundles.koin)
+
+    //network
+    implementation(libs.bundles.networking)
 
 
 
