@@ -80,6 +80,9 @@ dependencies {
     //network
     implementation(libs.bundles.networking)
 
+    //navigation
+    implementation(libs.compose.navigation)
+
 
 
 }
