@@ -14,10 +14,11 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.samueljuma.petapp.data.Cat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetDetailsScreen(onBackPressed: () -> Unit) {
+fun PetDetailsScreen(onBackPressed: () -> Unit, cat: Cat) {
     Scaffold (
         topBar = {
             TopAppBar(
@@ -41,7 +42,8 @@ fun PetDetailsScreen(onBackPressed: () -> Unit) {
         content = { paddingValues ->
             PetDetailsScreenContent(
                 modifier = Modifier
-                    .padding(paddingValues)
+                    .padding(paddingValues),
+                cat = cat
             )
         }
     )

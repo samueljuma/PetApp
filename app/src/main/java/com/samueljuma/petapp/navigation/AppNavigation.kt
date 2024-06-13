@@ -3,33 +3,47 @@ package com.samueljuma.petapp.navigation
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.samueljuma.petapp.views.PetDetailsScreen
 import com.samueljuma.petapp.views.PetsScreen
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
 fun AppNavigation() {
 
-    val ctx = LocalContext.current
-
-    val navController = rememberNavController()
+    val navController = rememberNavController() // Create a NavController for navigation
     NavHost(
-        navController = navController,
-        startDestination = Screens.PetsScreen.route
+        navController = navController, // Set the NavController for the NavHost
+        startDestination = Screens.PetsScreen.route // Define the initial screen
     ) {
-        composable(Screens.PetsScreen.route) {
+        composable(route = Screens.PetsScreen.route) { // Define the PetsScreen route
             PetsScreen(onPetClicked = { cat ->
-                navController.navigate(Screens.PetDetailsScreen.route)
-                Toast.makeText(ctx, "You clicked me ${cat.id}", Toast.LENGTH_SHORT).show()
+                // Navigate to PetDetailsScreen when a pet is clicked
+                navController.navigate(
+                    route = "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}" // Pass the Cat object as a JSON string
+                )
             })
         }
-        composable(Screens.PetDetailsScreen.route) {
+        composable(
+            route = "${Screens.PetDetailsScreen.route}/{cat}", // Define the PetDetailsScreen route with a dynamic "cat" argument
+            arguments = listOf(
+
+                navArgument("cat"){ // Define the "cat" argument as a String type
+                    type = NavType.StringType
+                }
+            )
+
+        ) {
             PetDetailsScreen(
                 onBackPressed = {
-                    navController.popBackStack()
-                }
+                    navController.popBackStack() // Pop the back stack when back is pressed
+                },
+                cat = Json.decodeFromString(it.arguments?.getString("cat") ?: "") // Decode the Cat object from the "cat" argument
             )
         }
 

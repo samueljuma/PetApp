@@ -16,10 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.samueljuma.petapp.data.Cat
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PetDetailsScreenContent(modifier: Modifier){
+fun PetDetailsScreenContent(modifier: Modifier, cat: Cat){
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -28,7 +29,7 @@ fun PetDetailsScreenContent(modifier: Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = "https://cataas.com/cat/Z7Db3zCmZtli1FeF" ,
+            model = "https://cataas.com/cat/${cat.id}" ,
             contentDescription = "Cute Cat",
             modifier = Modifier
                 .fillMaxWidth()
@@ -39,12 +40,12 @@ fun PetDetailsScreenContent(modifier: Modifier){
             modifier = Modifier
                 .padding(start = 6.dp, end = 6.dp)
         ) {
-            repeat(2) {
+            repeat(cat.tags.size) {
                 SuggestionChip(
                     modifier = Modifier
                         .padding(start = 3.dp, end = 3.dp),
                     onClick = { /*TODO*/ },
-                    label = { Text(text = "Tag $it") }
+                    label = { Text(text = cat.tags[it]) }
                 )
             }
         }
