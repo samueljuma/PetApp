@@ -15,6 +15,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.samueljuma.petapp.navigation.AppNavigation
 import com.samueljuma.petapp.ui.theme.PetAppTheme
 import com.samueljuma.petapp.views.PetList
 
@@ -25,25 +26,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PetAppTheme {
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = { Text(text = "Pets App") },
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                titleContentColor = MaterialTheme.colorScheme.onPrimary
-                            )
-                        )
-                    },
-                    content = { paddingValues ->
-                        PetList(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(paddingValues)
-                        )
-
-                    }
-                )
+                AppNavigation()
             }
         }
     }
