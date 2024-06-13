@@ -57,7 +57,10 @@ fun PetList(
         ){
             LazyColumn {
                 items(petsUIState.pets) { pet ->
-                    PetListItem(cat = pet, onPetClicked = onPetClicked)
+                    PetListItem(
+                        cat = pet,
+                        onPetClicked = onPetClicked
+                    )
                 }
             }
 
