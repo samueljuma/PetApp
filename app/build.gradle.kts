@@ -83,6 +83,10 @@ dependencies {
     //navigation
     implementation(libs.compose.navigation)
 
+    // Navigation on large screens and Foldables
+    implementation(libs.compose.window.size)
+    implementation(libs.androidx.window)
+
 
 
 }
