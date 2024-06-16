@@ -33,45 +33,22 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PetList(
-    modifier: Modifier,
-    onPetClicked: (Cat) -> Unit
+    onPetClicked: (Cat) -> Unit,
+    pets: List<Cat>,
+    modifier: Modifier
 ) {
-    val petsViewModel: PetsViewModel = koinViewModel()
-    val petsUIState by petsViewModel.petsUIState.collectAsStateWithLifecycle()
-
-    Column(
-        modifier = modifier
-            .padding(1.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    LazyColumn(
+        modifier = modifier,
     ) {
-        AnimatedVisibility(
-            visible = petsUIState.isLoading
-        ) {
-            CircularProgressIndicator()
-        }
-
-
-        AnimatedVisibility(
-            visible = petsUIState.pets.isNotEmpty()
-        ){
-            LazyColumn {
-                items(petsUIState.pets) { pet ->
-                    PetListItem(
-                        cat = pet,
-                        onPetClicked = onPetClicked
-                    )
-                }
-            }
-
-        }
-
-        AnimatedVisibility(
-            visible = petsUIState.error != null
-        ) {
-            Text(text = petsUIState.error ?: "Error")
+        items(items = pets){ pet->
+            PetListItem(
+                cat = pet,
+                onPetClicked = onPetClicked
+            )
         }
     }
+
+
 
 
 
