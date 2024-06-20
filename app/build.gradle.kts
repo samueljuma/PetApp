@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
@@ -86,6 +87,11 @@ dependencies {
     // Navigation on large screens and Foldables
     implementation(libs.compose.window.size)
     implementation(libs.androidx.window)
+
+    //Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
 
 
