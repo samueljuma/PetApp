@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Cat")
 data class CatEntity(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     val owner: String,
     val tags: List<String>,
     val createdAt: String,

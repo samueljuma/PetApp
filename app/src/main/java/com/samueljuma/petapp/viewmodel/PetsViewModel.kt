@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.samueljuma.petapp.data.NetworkResult
 import com.samueljuma.petapp.data.PetsRepository
 import com.samueljuma.petapp.data.PetsRepositoryImpl
+import com.samueljuma.petapp.data.asResult
 import com.samueljuma.petapp.views.PetsUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,28 +23,31 @@ class PetsViewModel(
     }
 
     private fun getPets() {
+        petsUIState.value = PetsUIState(isLoading = true)
         viewModelScope.launch {
-            petsUIState.value = PetsUIState(isLoading = true)
-            when (val result = petsRepository.getPets()) {
-                is NetworkResult.Success -> {
-                    petsUIState.update {
-                        it.copy(
-                            isLoading = false,
-                            pets = result.data
-                        )
+            petsRepository.getPets().asResult().collect{ result ->
+                when (result) {
+                    is NetworkResult.Success -> {
+                        petsUIState.update {
+                            it.copy(
+                                isLoading = false,
+                                pets = result.data
+                            )
+                        }
                     }
-                }
 
-                is NetworkResult.Error -> {
-                    petsUIState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = result.error
-                        )
+                    is NetworkResult.Error -> {
+                        petsUIState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = result.error
+                            )
 
+                        }
                     }
                 }
             }
+
         }
 
     }

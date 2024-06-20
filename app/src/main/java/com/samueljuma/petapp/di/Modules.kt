@@ -22,7 +22,7 @@ private val json = Json {
 
 val appModules = module {
     // Repository
-    single <PetsRepository> { PetsRepositoryImpl(get(), get()) }
+    single <PetsRepository> { PetsRepositoryImpl(get(), get(), get()) }
 
     // Dispatcher.IO - performs I/O operations off the main thread
     single { Dispatchers.IO }
