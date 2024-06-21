@@ -30,7 +30,10 @@ fun PetsScreen(
         modifier = Modifier.fillMaxSize() ,
         onPetClicked = onPetClicked,
         contentType = contentType,
-        petsUIState = petsUIState
+        petsUIState = petsUIState,
+        onFavoriteClicked = { cat->
+            petsViewModel.updatePet(cat)
+        }
     )
 
 }

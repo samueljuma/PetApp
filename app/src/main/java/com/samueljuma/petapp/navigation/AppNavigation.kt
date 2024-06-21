@@ -31,7 +31,7 @@ fun AppNavigation(
                     route = "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}" // Pass the Cat object as a JSON string
                 )
             },
-                contentType = contentType /***TODO*/
+                contentType = contentType
             )
         }
         composable(
@@ -55,7 +55,13 @@ fun AppNavigation(
         }
 
         composable(Screens.FavouritesScreen.route){
-            FavoritePetsScreen()
+            FavoritePetsScreen(
+                onPetClicked ={ cat->
+                    navController.navigate(
+                        "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}"
+                    )
+                }
+            )
         }
 
     }
