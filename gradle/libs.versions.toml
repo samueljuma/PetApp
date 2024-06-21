@@ -80,6 +80,7 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 #WorkManager
 work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work"}
 workmanager-koin = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+work-testing = { module = "androidx.work:work-testing", version.ref = "work" }
 
 # --------------------------------------------------------------------------------
 [plugins]

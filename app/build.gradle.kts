@@ -99,6 +99,7 @@ dependencies {
     //WorkManager
     implementation(libs.work.runtime)
     implementation(libs.workmanager.koin)
+    androidTestImplementation(libs.work.testing)
 }
 
 
