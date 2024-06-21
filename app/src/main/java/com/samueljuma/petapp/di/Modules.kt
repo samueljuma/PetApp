@@ -8,10 +8,12 @@ import com.samueljuma.petapp.data.PetsRepository
 import com.samueljuma.petapp.data.PetsRepositoryImpl
 import com.samueljuma.petapp.utils.DATABASE_NAME
 import com.samueljuma.petapp.viewmodel.PetsViewModel
+import com.samueljuma.petapp.workers.PetsSyncWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.dsl.worker
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -52,5 +54,7 @@ val appModules = module {
 
     // DAO
     single { get<CatDatabase>().catDao() }
+
+    worker { PetsSyncWorker(get(), get(), get()) }
 
 }

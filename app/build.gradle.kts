@@ -96,6 +96,9 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-
-
+    //WorkManager
+    implementation(libs.work.runtime)
+    implementation(libs.workmanager.koin)
 }
+
+

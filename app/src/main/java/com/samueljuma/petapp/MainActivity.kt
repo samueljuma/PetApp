@@ -33,6 +33,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.samueljuma.petapp.navigation.AppNavigation
 import com.samueljuma.petapp.navigation.AppNavigationContent
 import com.samueljuma.petapp.navigation.ContentType
@@ -44,6 +49,7 @@ import com.samueljuma.petapp.navigation.isSeparatingPosture
 import com.samueljuma.petapp.ui.theme.PetAppTheme
 import com.samueljuma.petapp.views.PetList
 import com.samueljuma.petapp.views.PetsNavigationDrawer
+import com.samueljuma.petapp.workers.PetsSyncWorker
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -54,6 +60,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        startPetsSync()
 
         val deviceFoldingPostureFlow = WindowInfoTracker.getOrCreate(this).windowLayoutInfo(this)
             .flowWithLifecycle(this.lifecycle)
@@ -186,5 +194,22 @@ class MainActivity : ComponentActivity() {
 
         }
     }
+
+    private fun startPetsSync(){
+        val syncPetsWorkRequest = OneTimeWorkRequestBuilder<PetsSyncWorker>()
+            .setConstraints(
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .setRequiresBatteryNotLow(true)
+                    .build()
+            ).build()
+        WorkManager.getInstance(applicationContext).enqueueUniqueWork(
+            "PetsSyncWorker",
+            ExistingWorkPolicy.KEEP,
+            syncPetsWorkRequest
+        )
+    }
+
+
 }
 
