@@ -22,8 +22,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.samueljuma.petapp.R
 import com.samueljuma.petapp.navigation.Screens
 
 
@@ -50,11 +53,20 @@ fun PetsNavigationDrawer(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "Petsy",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
+            Row(){
+                Icon(
+                    modifier = Modifier.padding(end = 8.dp),
+                    painter = painterResource(id = R.drawable.petslogo),
+                    contentDescription = "Home Icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "Petsy",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
             IconButton(
                 onClick = onDrawerClicked
             ) {

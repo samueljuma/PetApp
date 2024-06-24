@@ -15,13 +15,24 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Face
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ElevatedSuggestionChip
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,6 +47,7 @@ import com.samueljuma.petapp.data.Cat
 import com.samueljuma.petapp.viewmodel.PetsViewModel
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PetList(
     onPetClicked: (Cat) -> Unit,
@@ -55,7 +67,6 @@ fun PetList(
         }
     }
 
-
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -69,8 +80,11 @@ fun PetListItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(6.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+//        colors = CardDefaults.cardColors(
+//            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+//        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
         )
     ) {
         Column(
@@ -98,14 +112,18 @@ fun PetListItem(
             ) {
                 FlowRow(
                     modifier = Modifier
-                        .padding(start = 6.dp, end = 6.dp)
+                        .padding(start = 6.dp, end = 6.dp),
                 ) {
                     repeat(cat.tags.size) {
                         SuggestionChip(
                             modifier = Modifier
                                 .padding(start = 3.dp, end = 3.dp),
                             onClick = { /*TODO*/ },
-                            label = { Text(text = cat.tags[it]) }
+                            label = { Text(text = cat.tags[it]) },
+//                            colors = SuggestionChipDefaults.suggestionChipColors(
+//                                containerColor = MaterialTheme.colorScheme.primary,
+//                                labelColor =  MaterialTheme.colorScheme.onPrimary
+//                            )
                         )
                     }
                 }
@@ -121,9 +139,9 @@ fun PetListItem(
                     },
                     contentDescription = "Favorite",
                     tint = if (cat.isFavorite) {
-                        Color.Red
+                        MaterialTheme.colorScheme.primary
                     } else {
-                        Color.Gray
+                        MaterialTheme.colorScheme.secondary
                     }
                 )
             }
