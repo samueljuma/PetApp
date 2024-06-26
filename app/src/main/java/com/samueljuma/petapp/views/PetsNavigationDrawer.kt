@@ -79,6 +79,7 @@ fun PetsNavigationDrawer(
         }
 
         NavigationDrawerItem(
+            modifier = Modifier.padding(vertical = 8.dp),
             label = { Text("Home") },
             selected = selectedItem.value == Screens.PetsScreen ,
             onClick = {

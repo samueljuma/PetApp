@@ -139,7 +139,7 @@ fun PetListItem(
                     },
                     contentDescription = "Favorite",
                     tint = if (cat.isFavorite) {
-                        MaterialTheme.colorScheme.primary
+                        MaterialTheme.colorScheme.secondary
                     } else {
                         MaterialTheme.colorScheme.secondary
                     }
