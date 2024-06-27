@@ -54,6 +54,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import leakcanary.AppWatcher
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
@@ -193,6 +194,11 @@ class MainActivity : ComponentActivity() {
             }
 
         }
+
+        AppWatcher.objectWatcher.expectWeaklyReachable(
+            LeakTestUtils.leakCanaryTest,
+            "Static reference to LeakCanaryTest"
+        )
     }
 
     private fun startPetsSync(){
