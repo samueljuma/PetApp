@@ -72,6 +72,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
+
     //Koin for Dependency Injection
     implementation(libs.koin.core)
     implementation(libs.koin.android)
