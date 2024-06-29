@@ -11,6 +11,8 @@ plugins {
 apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
 detekt{
     parallel = true
+    config.setFrom(rootProject.files("config/detekt/detekt.yml"))
+//    config.setFrom(files("${project.rootDir}/config/detekt/detekt.yml"))
 }
 
 subprojects {
