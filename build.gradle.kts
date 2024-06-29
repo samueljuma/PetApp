@@ -5,6 +5,12 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.devtools.ksp) apply false
     alias(libs.plugins.gradle.ktlint)
+    alias(libs.plugins.detekt)
+}
+
+apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
+detekt{
+    parallel = true
 }
 
 subprojects {

@@ -29,6 +29,7 @@ work ="2.9.0"
 #plugins' versions
 kotlinxSerailizationPlugin = "1.9.0"
 ktlint = "12.1.1"
+detekt = "1.23.3"
 
 # --------------------------------------------------------------------------------
 [libraries]
@@ -97,6 +98,9 @@ devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 
 #Ktlint for static analysis
 gradle-ktlint = {id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
+
+#detekt for code smells
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 
 # --------------------------------------------------------------------------------
