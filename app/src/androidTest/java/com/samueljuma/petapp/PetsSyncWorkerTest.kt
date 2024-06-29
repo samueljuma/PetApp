@@ -21,58 +21,59 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class PetsSyncWorkerTest {
-    @get : Rule
+    @get:Rule
     val koinTestRule = KoinTestRule()
 
     @Before
-    fun setUp(){
-        val config = Configuration.Builder()
-            .setMinimumLoggingLevel(Log.DEBUG)
-            .setExecutor(SynchronousExecutor())
-            .build()
+    fun setUp() {
+        val config =
+            Configuration.Builder()
+                .setMinimumLoggingLevel(Log.DEBUG)
+                .setExecutor(SynchronousExecutor())
+                .build()
 
-        //Initialize WorkManager for instrumentation tests
+        // Initialize WorkManager for instrumentation tests
         WorkManagerTestInitHelper.initializeTestWorkManager(
             ApplicationProvider.getApplicationContext(),
-            config
+            config,
         )
     }
 
     @Test
-    fun testPetsSyncWorker(){
+    fun testPetsSyncWorker() {
         // Create request
-        val syncPetsWorkRequest = OneTimeWorkRequestBuilder<PetsSyncWorker>()
-            .setConstraints(
-                Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .setRequiresBatteryNotLow(true)
-                    .build()
-            )
-            .build()
+        val syncPetsWorkRequest =
+            OneTimeWorkRequestBuilder<PetsSyncWorker>()
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .setRequiresBatteryNotLow(true)
+                        .build(),
+                )
+                .build()
 
         // Setting up Test Drivers
         val workManager = WorkManager.getInstance(ApplicationProvider.getApplicationContext())
         val testDriver = WorkManagerTestInitHelper.getTestDriver(ApplicationProvider.getApplicationContext())!!
 
-        //Enqueue work request
+        // Enqueue work request
         workManager.enqueueUniqueWork(
             "PetsSyncWorker",
             ExistingWorkPolicy.KEEP,
-            syncPetsWorkRequest
+            syncPetsWorkRequest,
         ).result.get()
 
-        //Get WorkInfo and OutPutData
+        // Get WorkInfo and OutPutData
         val workInfo = workManager.getWorkInfoById(syncPetsWorkRequest.id).get()
 
-        //Assert that work is enqueued
+        // Assert that work is enqueued
         assertEquals(WorkInfo.State.ENQUEUED, workInfo.state)
 
         // simulate constraints met
         testDriver.setAllConstraintsMet(syncPetsWorkRequest.id)
 
-        //Get Output and state of worker
+        // Get Output and state of worker
         val postRequirementWorkInfo = workManager.getWorkInfoById(syncPetsWorkRequest.id).get()
         assertEquals(WorkInfo.State.RUNNING, postRequirementWorkInfo.state)
     }
-
 }

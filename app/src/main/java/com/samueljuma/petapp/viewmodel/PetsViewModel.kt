@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.samueljuma.petapp.data.Cat
 import com.samueljuma.petapp.data.NetworkResult
 import com.samueljuma.petapp.data.PetsRepository
-import com.samueljuma.petapp.data.PetsRepositoryImpl
 import com.samueljuma.petapp.data.asResult
 import com.samueljuma.petapp.views.PetsUIState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PetsViewModel(
-    private val petsRepository: PetsRepository
+    private val petsRepository: PetsRepository,
 ) : ViewModel() {
-
     val petsUIState = MutableStateFlow(PetsUIState())
 
     private val _favoritePets = MutableStateFlow<List<Cat>>(emptyList())
@@ -30,13 +28,13 @@ class PetsViewModel(
     private fun getPets() {
         petsUIState.value = PetsUIState(isLoading = true)
         viewModelScope.launch {
-            petsRepository.getPets().asResult().collect{ result ->
+            petsRepository.getPets().asResult().collect { result ->
                 when (result) {
                     is NetworkResult.Success -> {
                         petsUIState.update {
                             it.copy(
                                 isLoading = false,
-                                pets = result.data
+                                pets = result.data,
                             )
                         }
                     }
@@ -45,19 +43,16 @@ class PetsViewModel(
                         petsUIState.update {
                             it.copy(
                                 isLoading = false,
-                                error = result.error
+                                error = result.error,
                             )
-
                         }
                     }
                 }
             }
-
         }
-
     }
 
-    fun updatePet(cat: Cat){
+    fun updatePet(cat: Cat) {
         viewModelScope.launch {
             petsRepository.updatePet(cat)
         }
@@ -65,7 +60,7 @@ class PetsViewModel(
 
     fun getFavoritePets() {
         viewModelScope.launch {
-            petsRepository.getFavouritePets().collect{
+            petsRepository.getFavouritePets().collect {
                 _favoritePets.value = it
             }
         }

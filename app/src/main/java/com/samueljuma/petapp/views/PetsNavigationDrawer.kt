@@ -29,59 +29,59 @@ import androidx.compose.ui.unit.dp
 import com.samueljuma.petapp.R
 import com.samueljuma.petapp.navigation.Screens
 
-
 @Composable
 fun PetsNavigationDrawer(
     onFavoriteClicked: () -> Unit,
     onHomeClicked: () -> Unit,
-    onDrawerClicked: () -> Unit = {}
+    onDrawerClicked: () -> Unit = {},
 ) {
     val items = listOf(Screens.PetsScreen, Screens.FavouritesScreen)
     val selectedItem = remember { mutableStateOf(items[0]) }
 
     Column(
-        modifier = Modifier
-            .wrapContentWidth()
-            .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .wrapContentWidth()
+                .fillMaxHeight()
+                .background(MaterialTheme.colorScheme.inverseOnSurface)
+                .padding(16.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(){
+            Row {
                 Icon(
                     modifier = Modifier.padding(end = 8.dp),
                     painter = painterResource(id = R.drawable.petslogo),
                     contentDescription = "Home Icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = MaterialTheme.colorScheme.primary,
                 )
                 Text(
                     text = "Petsy",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
             IconButton(
-                onClick = onDrawerClicked
+                onClick = onDrawerClicked,
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = "Navigation Drawer"
+                    contentDescription = "Navigation Drawer",
                 )
-                
             }
         }
 
         NavigationDrawerItem(
             modifier = Modifier.padding(vertical = 8.dp),
             label = { Text("Home") },
-            selected = selectedItem.value == Screens.PetsScreen ,
+            selected = selectedItem.value == Screens.PetsScreen,
             onClick = {
                 onHomeClicked()
                 selectedItem.value = Screens.PetsScreen
@@ -89,13 +89,13 @@ fun PetsNavigationDrawer(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Home Icon"
+                    contentDescription = "Home Icon",
                 )
-            }
+            },
         )
         NavigationDrawerItem(
             label = { Text("Favorites") },
-            selected = selectedItem.value == Screens.FavouritesScreen ,
+            selected = selectedItem.value == Screens.FavouritesScreen,
             onClick = {
                 onFavoriteClicked()
                 selectedItem.value = Screens.FavouritesScreen
@@ -103,13 +103,11 @@ fun PetsNavigationDrawer(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favorite Icon"
+                    contentDescription = "Favorite Icon",
                 )
-            }
+            },
         )
     }
-
-
 }
 
 @Composable

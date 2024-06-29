@@ -27,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -72,7 +72,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Koin for Dependency Injection
+    // Koin for Dependency Injection
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
@@ -81,25 +81,23 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.koin)
 
-    //network
+    // network
     implementation(libs.bundles.networking)
 
-    //navigation
+    // navigation
     implementation(libs.compose.navigation)
 
     // Navigation on large screens and Foldables
     implementation(libs.compose.window.size)
     implementation(libs.androidx.window)
 
-    //Room
+    // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    //WorkManager
+    // WorkManager
     implementation(libs.work.runtime)
     implementation(libs.workmanager.koin)
     androidTestImplementation(libs.work.testing)
 }
-
-

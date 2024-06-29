@@ -10,11 +10,10 @@ data class Cat(
     @SerialName("_id")
     val id: String,
     @SerialName("owner")
-    val owner: String ="",
+    val owner: String = "",
     @SerialName("tags")
     val tags: List<String>,
-    @SerialName( "updatedAt")
-    val updatedAt: String ="",
-
-    val isFavorite: Boolean = false
+    @SerialName("updatedAt")
+    val updatedAt: String = "",
+    val isFavorite: Boolean = false,
 )

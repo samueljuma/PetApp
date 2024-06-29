@@ -17,52 +17,57 @@ import kotlinx.serialization.json.Json
 fun AppNavigation(
     contentType: ContentType,
     navController: NavHostController = rememberNavController(),
-
-    ) {
+) {
     NavHost(
-        navController = navController, // Set the NavController for the NavHost
-        startDestination = Screens.PetsScreen.route // Define the initial screen
+        // Set the NavController for the NavHost
+        navController = navController,
+        // Define the initial screen
+        startDestination = Screens.PetsScreen.route,
     ) {
         composable(route = Screens.PetsScreen.route) { // Define the PetsScreen route
             PetsScreen(
                 onPetClicked = { cat ->
-                // Navigate to PetDetailsScreen when a pet is clicked
-                navController.navigate(
-                    route = "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}" // Pass the Cat object as a JSON string
-                )
-            },
-                contentType = contentType
+                    // Navigate to PetDetailsScreen when a pet is clicked
+                    navController.navigate(
+                        // Pass the Cat object as a JSON string
+                        route = "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}",
+                    )
+                },
+                contentType = contentType,
             )
         }
         composable(
-            route = "${Screens.PetDetailsScreen.route}/{cat}", // Define the PetDetailsScreen route with a dynamic "cat" argument
-            arguments = listOf(
-
-                navArgument("cat") { // Define the "cat" argument as a String type
-                    type = NavType.StringType
-                }
-            )
-
+            // Define the PetDetailsScreen route with a dynamic "cat" argument
+            route = "${Screens.PetDetailsScreen.route}/{cat}",
+            arguments =
+                listOf(
+                    // Define the "cat" argument as a String type
+                    navArgument("cat") {
+                        type = NavType.StringType
+                    },
+                ),
         ) {
             PetDetailsScreen(
                 onBackPressed = {
-                    navController.popBackStack() // Pop the back stack when back is pressed
+                    // Pop the back stack when back is pressed
+                    navController.popBackStack()
                 },
-                cat = Json.decodeFromString(
-                    it.arguments?.getString("cat") ?: ""
-                ) // Decode the Cat object from the "cat" argument
+                // Decode the Cat object from the "cat" argument
+                cat =
+                    Json.decodeFromString(
+                        it.arguments?.getString("cat") ?: "",
+                    ),
             )
         }
 
-        composable(Screens.FavouritesScreen.route){
+        composable(Screens.FavouritesScreen.route) {
             FavoritePetsScreen(
-                onPetClicked ={ cat->
+                onPetClicked = { cat ->
                     navController.navigate(
-                        "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}"
+                        "${Screens.PetDetailsScreen.route}/${Json.encodeToString(cat)}",
                     )
-                }
+                },
             )
         }
-
     }
 }

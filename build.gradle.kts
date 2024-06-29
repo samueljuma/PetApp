@@ -4,5 +4,16 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.devtools.ksp) apply false
+    alias(libs.plugins.gradle.ktlint)
+}
 
+subprojects {
+    apply(plugin = rootProject.libs.plugins.gradle.ktlint.get().pluginId)
+    ktlint {
+        verbose.set(true)
+        android.set(true)
+        filter {
+            exclude("**/generated/**")
+        }
+    }
 }

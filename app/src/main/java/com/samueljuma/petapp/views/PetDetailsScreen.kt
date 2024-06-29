@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,34 +18,40 @@ import com.samueljuma.petapp.data.Cat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetDetailsScreen(onBackPressed: () -> Unit, cat: Cat) {
-    Scaffold (
+fun PetDetailsScreen(
+    onBackPressed: () -> Unit,
+    cat: Cat,
+) {
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Pet Details") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                ),
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
                 navigationIcon = {
                     IconButton(
                         onClick = onBackPressed,
                         content = {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back")
-                        }
+                                contentDescription = "Back",
+                            )
+                        },
                     )
-                }
+                },
             )
         },
         content = { paddingValues ->
             PetDetailsScreenContent(
-                modifier = Modifier
-                    .padding(paddingValues),
-                cat = cat
+                modifier =
+                    Modifier
+                        .padding(paddingValues),
+                cat = cat,
             )
-        }
+        },
     )
 }

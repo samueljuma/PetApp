@@ -11,18 +11,20 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.logger.Level
 
-class KoinTestRule: TestRule {
-    override fun apply(base: Statement?, description: Description?): Statement {
+class KoinTestRule : TestRule {
+    override fun apply(
+        base: Statement?,
+        description: Description?,
+    ): Statement {
         return object : Statement() {
             override fun evaluate() {
                 stopKoin()
-                startKoin{
+                startKoin {
                     androidLogger(Level.ERROR)
                     androidContext(ApplicationProvider.getApplicationContext())
                     modules(appModules)
                 }
             }
-
         }
     }
 }

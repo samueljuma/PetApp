@@ -15,12 +15,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedAssistChip
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,25 +34,32 @@ import com.samueljuma.petapp.data.Cat
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PetDetailsScreenContent(modifier: Modifier, cat: Cat) {
-
+fun PetDetailsScreenContent(
+    modifier: Modifier,
+    cat: Cat,
+) {
     var imageClicked by rememberSaveable { mutableStateOf(false) }
 
     // Animate the height based on imageClicked
     val height by animateDpAsState(
         targetValue = if (imageClicked) 500.dp else 250.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy, // Adjust bounciness
-            stiffness = Spring.StiffnessLow                // Adjust speed
-        )
+        animationSpec =
+            spring(
+                // Adjust bounciness
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                // Adjust speed
+                stiffness = Spring.StiffnessLow,
+            ),
     )
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState()),// Add vertical scrolling
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+        // Add vertical scrolling
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ElevatedCard(
             onClick = {
@@ -67,28 +71,32 @@ fun PetDetailsScreenContent(modifier: Modifier, cat: Cat) {
                 AsyncImage(
                     model = "https://cataas.com/cat/${cat.id}",
                     contentDescription = "Cute Cat",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(height),
-                    contentScale = ContentScale.Crop
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(height),
+                    contentScale = ContentScale.Crop,
                 )
-            }
+            },
         )
 
         FlowRow(
-            modifier = Modifier
-                .padding(top = 10.dp, start = 6.dp, end = 6.dp)
+            modifier =
+                Modifier
+                    .padding(top = 10.dp, start = 6.dp, end = 6.dp),
         ) {
             repeat(cat.tags.size) {
                 ElevatedSuggestionChip(
-                    modifier = Modifier
-                        .padding(start = 3.dp, end = 3.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 3.dp, end = 3.dp),
                     onClick = { /*TODO*/ },
                     label = { Text(text = cat.tags[it]) },
-                    colors = SuggestionChipDefaults.suggestionChipColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        labelColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                    colors =
+                        SuggestionChipDefaults.suggestionChipColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        ),
                 )
             }
         }

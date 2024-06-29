@@ -16,29 +16,32 @@ import com.samueljuma.petapp.data.Cat
 @Composable
 fun PetListAndDetails(
     pets: List<Cat>,
-    onFavoriteClicked: (Cat) -> Unit
+    onFavoriteClicked: (Cat) -> Unit,
 ) {
     var currentPet by remember { mutableStateOf(pets.first()) }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         PetList(
             onPetClicked = {
                 currentPet = it
             },
             pets = pets,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            onFavoriteClicked = onFavoriteClicked
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            onFavoriteClicked = onFavoriteClicked,
         )
         PetDetailsScreenContent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .weight(1f),
-            cat = currentPet)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .weight(1f),
+            cat = currentPet,
+        )
     }
 }

@@ -6,15 +6,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 
-
 class PetsRepositoryImpl(
     private val catsAPI: CatsAPI,
     private val dispatcher: CoroutineDispatcher,
-    private val catDao: CatDao
+    private val catDao: CatDao,
 ) : PetsRepository {
     override suspend fun getPets(): Flow<List<Cat>> {
-
-        //withContext(dispatcher) helps to switch the context of the coroutine
+        // withContext(dispatcher) helps to switch the context of the coroutine
         return withContext(dispatcher) {
             catDao.getCats()
                 .map { petsCached ->
@@ -25,11 +23,9 @@ class PetsRepositoryImpl(
                             tags = catEntity.tags,
                             createdAt = catEntity.createdAt,
                             updatedAt = catEntity.updatedAt,
-                            isFavorite = catEntity.isFavorite
+                            isFavorite = catEntity.isFavorite,
                         )
-
                     }
-
                 }.onEach {
                     if (it.isEmpty()) {
                         fetchRemotePets()
@@ -50,8 +46,8 @@ class PetsRepositoryImpl(
                             tags = it.tags,
                             createdAt = it.createdAt,
                             updatedAt = it.updatedAt,
-                            isFavorite = it.isFavorite
-                        )
+                            isFavorite = it.isFavorite,
+                        ),
                     )
                 }
             }
@@ -67,8 +63,8 @@ class PetsRepositoryImpl(
                     tags = cat.tags,
                     createdAt = cat.createdAt,
                     updatedAt = cat.updatedAt,
-                    isFavorite = cat.isFavorite
-                )
+                    isFavorite = cat.isFavorite,
+                ),
             )
         }
     }
@@ -84,13 +80,10 @@ class PetsRepositoryImpl(
                             tags = catEntity.tags,
                             createdAt = catEntity.createdAt,
                             updatedAt = catEntity.updatedAt,
-                            isFavorite = catEntity.isFavorite
+                            isFavorite = catEntity.isFavorite,
                         )
                     }
-
                 }
         }
     }
-
-
 }

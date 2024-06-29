@@ -13,5 +13,5 @@ data class CatEntity(
     val createdAt: String,
     val updatedAt: String,
     @ColumnInfo(defaultValue = "0")
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
 )

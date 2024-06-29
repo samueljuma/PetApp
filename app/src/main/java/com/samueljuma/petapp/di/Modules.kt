@@ -17,44 +17,46 @@ import org.koin.androidx.workmanager.dsl.worker
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-private val json = Json {
-    ignoreUnknownKeys = true
-    isLenient = true
-}
-
-val appModules = module {
-    // Repository
-    single <PetsRepository> { PetsRepositoryImpl(get(), get(), get()) }
-
-    // Dispatcher.IO - performs I/O operations off the main thread
-    single { Dispatchers.IO }
-
-    // ViewModel
-    single { PetsViewModel(get()) }
-
-    // Retrofit Instance
-    single{
-        Retrofit.Builder()
-            .addConverterFactory(json.asConverterFactory(contentType = "application/json".toMediaType()))
-            .baseUrl("https://cataas.com/api/")
-            .build()
+private val json =
+    Json {
+        ignoreUnknownKeys = true
+        isLenient = true
     }
 
-    // API Service
-    single { get<Retrofit>().create(CatsAPI::class.java) }
+val appModules =
+    module {
+        // Repository
+        single<PetsRepository> { PetsRepositoryImpl(get(), get(), get()) }
 
-    // Database
-    single {
-        Room.databaseBuilder(
-            androidContext(), // from Koin
-            CatDatabase::class.java,
-            DATABASE_NAME
-        ).build()
+        // Dispatcher.IO - performs I/O operations off the main thread
+        single { Dispatchers.IO }
+
+        // ViewModel
+        single { PetsViewModel(get()) }
+
+        // Retrofit Instance
+        single {
+            Retrofit.Builder()
+                .addConverterFactory(json.asConverterFactory(contentType = "application/json".toMediaType()))
+                .baseUrl("https://cataas.com/api/")
+                .build()
+        }
+
+        // API Service
+        single { get<Retrofit>().create(CatsAPI::class.java) }
+
+        // Database
+        single {
+            Room.databaseBuilder(
+                // from Koin
+                androidContext(),
+                CatDatabase::class.java,
+                DATABASE_NAME,
+            ).build()
+        }
+
+        // DAO
+        single { get<CatDatabase>().catDao() }
+
+        worker { PetsSyncWorker(get(), get(), get()) }
     }
-
-    // DAO
-    single { get<CatDatabase>().catDao() }
-
-    worker { PetsSyncWorker(get(), get(), get()) }
-
-}

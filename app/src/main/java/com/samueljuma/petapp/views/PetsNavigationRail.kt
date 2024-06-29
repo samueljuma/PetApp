@@ -26,19 +26,20 @@ fun PetsNavigationRail(
 
     val selectedItem = remember { mutableStateOf(items[0]) }
 
-    NavigationRail (
-        modifier = Modifier
-            .fillMaxHeight()
+    NavigationRail(
+        modifier =
+            Modifier
+                .fillMaxHeight(),
     ) {
         NavigationRailItem(
-            selected = false ,
+            selected = false,
             onClick = onDrawerClicked,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "Menu Icon"
+                    contentDescription = "Menu Icon",
                 )
-            }
+            },
         )
 
         NavigationRailItem(
@@ -50,9 +51,9 @@ fun PetsNavigationRail(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Home,
-                    contentDescription = "Home Icon"
+                    contentDescription = "Home Icon",
                 )
-            }
+            },
         )
 
         NavigationRailItem(
@@ -64,13 +65,12 @@ fun PetsNavigationRail(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Favorite Icon"
+                    contentDescription = "Favorite Icon",
                 )
-            }
+            },
         )
     }
 }
-
 
 @Composable
 @Preview(showBackground = true)
@@ -78,6 +78,6 @@ fun PetsNavigationRailPreview() {
     PetsNavigationRail(
         onFavoriteClicked = {},
         onHomeClicked = {},
-        onDrawerClicked = {}
+        onDrawerClicked = {},
     )
 }

@@ -5,10 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,29 +29,32 @@ fun PetsScreenContent(
     onPetClicked: (Cat) -> Unit,
     contentType: ContentType,
     petsUIState: PetsUIState,
-    onFavoriteClicked: (Cat) -> Unit
+    onFavoriteClicked: (Cat) -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Petsy") },
-                colors = if (contentType == ContentType.List) {
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        titleContentColor = MaterialTheme.colorScheme.onPrimary
-                    )
-                } else {
-                    TopAppBarDefaults.topAppBarColors()
-                },
+                colors =
+                    if (contentType == ContentType.List) {
+                        TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    } else {
+                        TopAppBarDefaults.topAppBarColors()
+                    },
                 navigationIcon = {
                     Icon(
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp),
                         painter = painterResource(id = R.drawable.petslogo),
                         contentDescription = "PetsLogo",
-                        tint = if (contentType == ContentType.List) {MaterialTheme.colorScheme.onPrimary
-                        }else{
-                            MaterialTheme.colorScheme.primary
-                        }
+                        tint =
+                            if (contentType == ContentType.List) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.primary
+                            },
                     )
 //                    Icon(
 //                        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
@@ -64,53 +63,49 @@ fun PetsScreenContent(
 //                        tint = MaterialTheme.colorScheme.onPrimary
 //
 //                    )
-                }
+                },
             )
         },
         content = { paddingValues ->
             Column(
-                modifier = modifier
-                    .padding(paddingValues),
+                modifier =
+                    modifier
+                        .padding(paddingValues),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 AnimatedVisibility(
-                    visible = petsUIState.isLoading
+                    visible = petsUIState.isLoading,
                 ) {
                     CircularProgressIndicator()
                 }
 
-
                 AnimatedVisibility(
-                    visible = petsUIState.pets.isNotEmpty()
+                    visible = petsUIState.pets.isNotEmpty(),
                 ) {
                     if (contentType == ContentType.List) {
                         PetList(
                             onPetClicked = onPetClicked,
                             pets = petsUIState.pets,
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            onFavoriteClicked = onFavoriteClicked
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth(),
+                            onFavoriteClicked = onFavoriteClicked,
                         )
                     } else {
                         PetListAndDetails(
                             pets = petsUIState.pets,
-                            onFavoriteClicked = onFavoriteClicked
+                            onFavoriteClicked = onFavoriteClicked,
                         )
                     }
-
                 }
 
                 AnimatedVisibility(
-                    visible = petsUIState.error != null
+                    visible = petsUIState.error != null,
                 ) {
                     Text(text = petsUIState.error ?: "Error")
                 }
             }
-
-        }
+        },
     )
 }
-
-
-

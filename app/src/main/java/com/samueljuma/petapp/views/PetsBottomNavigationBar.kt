@@ -7,28 +7,27 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.samueljuma.petapp.navigation.Screens
 
 @Composable
 fun PetsBottomNavigationBar(
     onFavoriteClicked: () -> Unit,
-    onHomeClicked: () -> Unit
-){
+    onHomeClicked: () -> Unit,
+) {
     val items = listOf(Screens.PetsScreen, Screens.FavouritesScreen)
     val selectedItem = remember { mutableStateOf(items[0]) }
 
     NavigationBar(
-        modifier = Modifier
-            .fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.surface
+        modifier =
+            Modifier
+                .fillMaxWidth(),
+        containerColor = MaterialTheme.colorScheme.surface,
     ) {
         NavigationBarItem(
             selected = selectedItem.value == Screens.PetsScreen,
@@ -39,9 +38,9 @@ fun PetsBottomNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Home Icon"
+                    contentDescription = "Home Icon",
                 )
-            }
+            },
         )
 
         NavigationBarItem(
@@ -53,19 +52,18 @@ fun PetsBottomNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favourites Icon"
+                    contentDescription = "Favourites Icon",
                 )
-            }
+            },
         )
     }
-
 }
 
 @Composable
 @Preview
-fun PetsBottomNavigationBarPreview(){
+fun PetsBottomNavigationBarPreview() {
     PetsBottomNavigationBar(
         onFavoriteClicked = {},
-        onHomeClicked = {}
+        onHomeClicked = {},
     )
 }

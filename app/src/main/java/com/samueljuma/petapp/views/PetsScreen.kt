@@ -1,13 +1,7 @@
 package com.samueljuma.petapp.views
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,19 +15,18 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PetsScreen(
     onPetClicked: (Cat) -> Unit,
-    contentType: ContentType
-){
+    contentType: ContentType,
+) {
     val petsViewModel: PetsViewModel = koinViewModel()
     val petsUIState by petsViewModel.petsUIState.collectAsStateWithLifecycle()
 
     PetsScreenContent(
-        modifier = Modifier.fillMaxSize() ,
+        modifier = Modifier.fillMaxSize(),
         onPetClicked = onPetClicked,
         contentType = contentType,
         petsUIState = petsUIState,
-        onFavoriteClicked = { cat->
+        onFavoriteClicked = { cat ->
             petsViewModel.updatePet(cat)
-        }
+        },
     )
-
 }
