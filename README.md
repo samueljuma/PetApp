@@ -6,5 +6,5 @@ a book written by [<b>Harun Wangereka</b>](https://www.linkedin.com/in/harun-wan
 ## Screenshots
 | <img src="screenshots/demo.gif"/> | <img src="screenshots/1.jpeg"/> | <img src="screenshots/2.jpeg"/> | <img src="screenshots/3.jpeg"/> |
 |:---------------------------------:|:-------------------------------:|:-------------------------------:|:-------------------------------:|
-|  <img src="screenshots/4.jpeg"/>  | <img src="screenshots/5.jpeg"/> | :<img src="screenshots/6.jpg"/> | :<img src="screenshots/7.jpg"/> |
+|  <img src="screenshots/4.jpeg"/>  | <img src="screenshots/5.jpeg"/> | <img src="screenshots/6.jpg"/>  | <img src="screenshots/7.jpg"/>  |
 
