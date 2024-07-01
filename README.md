@@ -4,7 +4,7 @@ A simple Jetpack Compose App that consumes the Cat as a Service API
 a book written by [<b>Harun Wangereka</b>](https://www.linkedin.com/in/harun-wangereka-442b37b9/)
 ##
 ## Screenshots
-| <img src="screenshots/1.jpeg"/> | <img src="screenshots/2.jpeg"/> | <img src="screenshots/3.jpeg"/> |
-|:-------------------------------:|:-------------------------------:|:-------------------------------:|
-| <img src="screenshots/4.jpeg"/> | <img src="screenshots/5.jpeg"/> | <img src="screenshots/6.jpeg"/> |
+| <img src="screenshots/1.jpeg"/> | <img src="screenshots/2.jpeg"/> | <img src="screenshots/3.jpeg"/> | <img src="screenshots/4.jpeg"/> |
+|:-------------------------------:|:-------------------------------:|:-------------------------------:|:-------------------------------:|
+| <img src="screenshots/5.jpeg"/> | <img src="screenshots/6.jpeg"/> |
 
