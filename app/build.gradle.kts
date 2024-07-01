@@ -100,4 +100,6 @@ dependencies {
     implementation(libs.work.runtime)
     implementation(libs.workmanager.koin)
     androidTestImplementation(libs.work.testing)
+
+    testImplementation(libs.bundles.test)
 }
