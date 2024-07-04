@@ -28,6 +28,8 @@ work ="2.9.0"
 mockWebserver = "5.0.0-alpha.14"
 coroutinestest = "1.7.3"
 truth = "1.1.5"
+mockk = "1.13.3"
+
 
 #plugins' versions
 kotlinxSerailizationPlugin = "1.9.0"
@@ -92,6 +94,9 @@ test-mock-webserver = { module = "com.squareup.okhttp3:mockwebserver", version.r
 test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinestest"}
 test-truth = { module = "com.google.truth:truth", version.ref = "truth"}
 
+#viewmodel test dependencies
+test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
 # --------------------------------------------------------------------------------
 [plugins]
 # --------------------------------------------------------------------------------
@@ -119,4 +124,4 @@ compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling", "androi
     "coil-compose", "compose-lifecycle"]
 koin =["koin-core", "koin-android", "koin-androidx-compose"]
 networking = ["retrofit", "retrofit-serialization", "serialization-json", "coroutines", "coroutines-android", "okhttp3"]
-test = [ "test-mock-webserver", "test-coroutines", "test-truth"]
+test = [ "test-mock-webserver", "test-coroutines", "test-truth", "test-mockk"]
