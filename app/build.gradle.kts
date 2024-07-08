@@ -6,6 +6,14 @@ plugins {
 }
 
 android {
+    signingConfigs{
+        create("release"){
+            storeFile = file("../keystore/petsyapp.jks")
+            storePassword = "PetsyApp"
+            keyAlias = "key0"
+            keyPassword = "PetsyApp"
+        }
+    }
     namespace = "com.samueljuma.petapp"
     compileSdk = 34
 
@@ -20,15 +28,21 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        signingConfig = signingConfigs.getByName("release")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
     compileOptions {
