@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -63,10 +64,8 @@ fun PetListItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(6.dp),
-        //        colors = CardDefaults.cardColors(
-//            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-//        ),
+                .padding(6.dp)
+                .testTag("PetListItemCard"),
         elevation =
             CardDefaults.cardElevation(
                 defaultElevation = 6.dp,
@@ -77,6 +76,7 @@ fun PetListItem(
                 Modifier
                     .fillMaxWidth()
                     .padding(bottom = 10.dp)
+                    .testTag("PetListItemColumn")
                     .clickable {
                         onPetClicked(cat)
                     },
@@ -110,16 +110,13 @@ fun PetListItem(
                                     .padding(start = 3.dp, end = 3.dp),
                             onClick = { /*TODO*/ },
                             label = { Text(text = cat.tags[it]) },
-//                            colors = SuggestionChipDefaults.suggestionChipColors(
-//                                containerColor = MaterialTheme.colorScheme.primary,
-//                                labelColor =  MaterialTheme.colorScheme.onPrimary
-//                            )
                         )
                     }
                 }
                 Icon(
                     modifier =
                         Modifier
+                            .testTag("PetListItemFavoriteIcon")
                             .clickable {
                                 onFavoriteClicked(cat.copy(isFavorite = !cat.isFavorite))
                             },
