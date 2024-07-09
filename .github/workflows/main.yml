@@ -32,20 +32,20 @@ jobs:
         
       - name: Run ktlintCheck
         run: ./gradlew ktlintCheck
-        working-directory: .
+        working-directory: ./chapterfourteen
 
       - name: Run detekt
         run: ./gradlew detekt
-        working-directory: .
+        working-directory: ./chapterfourteen
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
-        working-directory: .
+        run: ./gradlew test
+        working-directory: ./chapterfourteen
 
       - name: Run connected tests
         uses: ReactiveCircus/android-emulator-runner@v2
         with:
-          working-directory: .
+          working-directory: ./chapterfourteen
           api-level: 33
           target: google_apis
           arch: x86_64
