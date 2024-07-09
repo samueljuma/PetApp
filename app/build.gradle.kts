@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    signingConfigs{
-        create("release"){
+    signingConfigs {
+        create("release") {
             storeFile = file("../keystore/petsyapp.jks")
             storePassword = "PetsyApp"
             keyAlias = "key0"

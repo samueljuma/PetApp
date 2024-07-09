@@ -24,7 +24,5 @@ class MockRequestDispatcher : Dispatcher() {
         val uri = Resources.getResource(path)
         val file = File(uri.path)
         return String(file.readBytes())
-
     }
-
 }

@@ -25,7 +25,7 @@ class PetsViewModel(
         getPets()
     }
 
-     fun getPets() {
+    fun getPets() {
         petsUIState.value = PetsUIState(isLoading = true)
         viewModelScope.launch {
             petsRepository.getPets().asResult().collect { result ->

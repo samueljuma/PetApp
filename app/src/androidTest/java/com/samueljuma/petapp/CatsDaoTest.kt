@@ -20,10 +20,11 @@ class CatsDaoTest {
 
     @Before
     fun createDatabase() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            CatDatabase::class.java
-        ).allowMainThreadQueries().build()
+        database =
+            Room.inMemoryDatabaseBuilder(
+                ApplicationProvider.getApplicationContext(),
+                CatDatabase::class.java,
+            ).allowMainThreadQueries().build()
 
         catDao = database.catDao()
     }
@@ -34,44 +35,46 @@ class CatsDaoTest {
     }
 
     @Test
-    fun testInsertAndReadCat() = runTest {
-        //Given a cat
-        val cat = CatEntity(
-            id = "1",
-            owner = "Test Owner",
-            tags =listOf("tag1", "tag2"),
-            createdAt = "2023-08-01T00:00:00Z",
-            updatedAt = "2023-08-02T00:00:00Z",
-            isFavorite = false
-        )
-        //Insert cat to database
-        catDao.insert(cat)
-        //Then the cat should be in the database
-        val cats = catDao.getCats()
-        assert(cats.first().isNotEmpty())
-        assert(cats.first().contains(cat))
-
-    }
+    fun testInsertAndReadCat() =
+        runTest {
+            // Given a cat
+            val cat =
+                CatEntity(
+                    id = "1",
+                    owner = "Test Owner",
+                    tags = listOf("tag1", "tag2"),
+                    createdAt = "2023-08-01T00:00:00Z",
+                    updatedAt = "2023-08-02T00:00:00Z",
+                    isFavorite = false,
+                )
+            // Insert cat to database
+            catDao.insert(cat)
+            // Then the cat should be in the database
+            val cats = catDao.getCats()
+            assert(cats.first().isNotEmpty())
+            assert(cats.first().contains(cat))
+        }
 
     @Test
-    fun testAddCatToFavorites() = runTest {
-        //Given a cat
-        val cat = CatEntity(
-            id = "1",
-            owner = "Test Owner",
-            tags =listOf("tag1", "tag2"),
-            createdAt = "2023-08-01T00:00:00Z",
-            updatedAt = "2023-08-02T00:00:00Z",
-            isFavorite = false
-        )
+    fun testAddCatToFavorites() =
+        runTest {
+            // Given a cat
+            val cat =
+                CatEntity(
+                    id = "1",
+                    owner = "Test Owner",
+                    tags = listOf("tag1", "tag2"),
+                    createdAt = "2023-08-01T00:00:00Z",
+                    updatedAt = "2023-08-02T00:00:00Z",
+                    isFavorite = false,
+                )
 
-        //Insert cat to database
-        catDao.insert(cat)
-        //Add cat to favorites
-        catDao.update(cat.copy(isFavorite = true))
-        //Then the cat should be in the favorites
-        val favoriteCats = catDao.getFavoriteCats()
-        assert(favoriteCats.first().contains(cat.copy(isFavorite = true)))
-    }
-
+            // Insert cat to database
+            catDao.insert(cat)
+            // Add cat to favorites
+            catDao.update(cat.copy(isFavorite = true))
+            // Then the cat should be in the favorites
+            val favoriteCats = catDao.getFavoriteCats()
+            assert(favoriteCats.first().contains(cat.copy(isFavorite = true)))
+        }
 }

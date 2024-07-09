@@ -12,38 +12,39 @@ import org.junit.Rule
 import org.junit.Test
 
 class PetListItemTest {
-    @get: Rule
+    @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testPestListItem(){
-        with(composeTestRule){
+    fun testPestListItem() {
+        with(composeTestRule) {
             setContent {
                 PetListItem(
-                    cat = Cat(
-                        id = "1",
-                        owner = "Test Owner",
-                        tags =listOf("cute", "fluffy"),
-                        createdAt = "2023-08-01T00:00:00Z",
-                        updatedAt = "2023-08-02T00:00:00Z",
-                        isFavorite = false
-                    ),
+                    cat =
+                        Cat(
+                            id = "1",
+                            owner = "Test Owner",
+                            tags = listOf("cute", "fluffy"),
+                            createdAt = "2023-08-01T00:00:00Z",
+                            updatedAt = "2023-08-02T00:00:00Z",
+                            isFavorite = false,
+                        ),
                     onPetClicked = {},
-                    onFavoriteClicked = {}
+                    onFavoriteClicked = {},
                 )
             }
 
-            //Assertions using tags
+            // Assertions using tags
             onNodeWithTag("PetListItemCard").assertExists()
             onNodeWithTag("PetListItemColumn").assertExists()
             onNodeWithTag("PetListItemFavoriteIcon").assertExists()
 
-            //Assertions using text
+            // Assertions using text
             onNodeWithText("fluffy").assertIsDisplayed()
             onNodeWithContentDescription("Cute Cat").assertIsDisplayed()
             onNodeWithContentDescription("Favorite").assertIsDisplayed()
 
-            //Actions
+            // Actions
             onNodeWithTag("PetListItemFavoriteIcon").performClick()
         }
     }
