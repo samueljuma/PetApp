@@ -53,5 +53,3 @@ jobs:
           emulator-boot-timeout: 600  # Increased timeout
           script: adb wait-for-device && adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;' && ./gradlew connectedCheck
           
-      - name: Print emulator logs
-        run: adb logcat -d
