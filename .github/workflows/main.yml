@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew test
         working-directory: .
 
-      - name: Start emulator
+      - name: Start emulator and run connected tests
         uses: ReactiveCircus/android-emulator-runner@v2
         with:
           api-level: 33
@@ -51,13 +51,7 @@ jobs:
           profile: Nexus 6
           disable-animations: true
           emulator-boot-timeout: 300
+          script: ./gradlew connectedCheck
           
-      - name: Wait for emulator to start
-        run: adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-
-      - name: Run connected tests
-        run: ./gradlew connectedCheck
-        working-directory: .
-      
       - name: Print emulator logs
         run: adb logcat -d
